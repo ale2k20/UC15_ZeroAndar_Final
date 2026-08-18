@@ -1,0 +1,46 @@
+# ===== Build / compilados =====
+build/
+dist/
+target/
+*.class
+*.jar
+!**/lib/*.jar
+
+# ===== NetBeans =====
+nbproject/private/
+nbproject/Makefile-*.mk
+nbproject/Package-*.bash
+.nb-gradle/
+
+# ===== Maven =====
+.mvn/
+mvnw
+mvnw.cmd
+dependency-reduced-pom.xml
+
+# ===== Logs =====
+*.log
+hs_err_pid*
+
+# ===== IDE (VSCode, IntelliJ, Eclipse) =====
+.vscode/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# ===== Sistema operacional =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Configurações locais / segredos =====
+*.env
+config.properties
+private.properties
+
+# ===== Arquivos temporários =====
+*.tmp
+*.bak
+~$*

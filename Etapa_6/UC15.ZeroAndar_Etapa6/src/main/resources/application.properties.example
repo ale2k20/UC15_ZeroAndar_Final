@@ -1,0 +1,5 @@
+# Exemplo de configuracao JDBC para desenvolvimento local.
+# Nao coloque senhas reais no repositorio.
+zeroandar.db.url=jdbc:mysql://localhost:3306/zandarDB?useSSL=false&serverTimezone=America/Sao_Paulo
+zeroandar.db.user=root
+zeroandar.db.password=
