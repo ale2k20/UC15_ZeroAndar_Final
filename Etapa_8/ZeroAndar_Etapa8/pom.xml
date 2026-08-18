@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>uc15.etapa8</groupId>
+  <artifactId>ZeroAndar</artifactId>
+  <version>1.8.0</version>
+  <packaging>jar</packaging>
+  <name>ZeroAndar - PI3 Etapa 8</name>
+
+  <!--
+    UC15 - Projeto Integrador 3 - Etapa 8
+    Front-end Web (HTML + CSS + JavaScript), sem regra de negocio nem
+    conexao com banco de dados nesta etapa.
+
+    O projeto ja usa Spring Boot (Tomcat embutido) apenas para SERVIR
+    as paginas estaticas (src/main/resources/static) pelo navegador,
+    permitindo testar a aplicacao rodando de verdade (mvn spring-boot:run).
+    Na Etapa 9 serao adicionados os Controllers/Services/JPA para o
+    back-end real, reaproveitando as classes ja trazidas da Etapa 7.
+    
+    Dados de Login:
+       E-mail: alex@zeroandar.com       - senha: 'senha123' - nome: Alex Admin      - papel: Administrador
+       E-mail: ricardo@zeroandar.com    - senha: 'senha123' - nome: Ricardo Gomes   - papel: Corretor
+       E-mail: patricia@zeroandar.com   - senha: 'senha123' - nome: Patricia Lima   - papel: Corretor
+  -->
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>4.1.0</version>
+    <relativePath/>
+  </parent>
+
+  <properties>
+    <java.version>25</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <!--
+      Necessario para a aplicacao subir com um servidor (Tomcat embutido)
+      e servir as paginas de src/main/resources/static pelo navegador.
+      Nesta etapa (8) nao ha Controllers/Services do Spring ainda - o
+      Tomcat apenas serve os arquivos estaticos (HTML/CSS/JS) prontos.
+    -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!--
+      Dependencias herdadas da Etapa 7 (JDBC puro), necessarias para
+      compilar as classes de model/repository/service copiadas do
+      projeto desktop. Nesta etapa (front-end) elas nao sao executadas
+      servem apenas de base para a integracao real com o banco na
+      Etapa 9, quando o acesso a dados passara a ser feito via Spring.
+    -->
+    <dependency>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
+      <version>9.5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.12.2</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!--
+      ================================================================
+      ETAPA 9 (proxima etapa): quando o back-end (Controllers, Services
+      com @Service, banco via JPA/JDBC) for adicionado, também será o
+      momento de trocar HTML estatico por Thymeleaf, se optar por isso:
+      basta adicionar a dependencia abaixo e mover as paginas de
+      src/main/resources/static/ para src/main/resources/templates/.
+
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-thymeleaf</artifactId>
+      </dependency>
+      ================================================================
+    -->
+  </dependencies>
+
+  <build>
+    <finalName>ZeroAndar-Etapa8</finalName>
+    <plugins>
+      <!--
+        Empacota a aplicacao como um jar executavel (java -jar), com o
+        Tomcat embutido dentro do jar. Classe principal:
+        uc15.etapa8.zeroandar.ZeroAndarApplication (ver src/main/java).
+      -->
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>

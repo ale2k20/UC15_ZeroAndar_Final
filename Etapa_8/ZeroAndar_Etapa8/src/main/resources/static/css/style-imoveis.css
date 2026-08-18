@@ -1,0 +1,577 @@
+/* =========================================================================
+   ZERO ANDAR - Gestão de Imóveis
+   UC15 - Projeto Integrador 3 - Etapa 8
+   CSS unificado: layout base + CRUD
+   ========================================================================= */
+
+/* ===== RESET E BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #F5F5F5;
+    color: #303030;
+    overflow: hidden;
+}
+
+/* ===== CABEÇALHO INSTITUCIONAL (2,5cm) ===== */
+.header {
+    background: #D1D1D1;
+    height: 2.5cm;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo-img {
+    height: 1.7cm;
+    width: auto;
+    display: block;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #C6C6C6, #919191, #5E5E5E);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+}
+
+.logo-zero {
+    color: #4D4D4D;
+}
+
+.logo-andar {
+    color: #5CB85C;
+}
+
+.project-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #5C5C5C;
+    padding-left: 14px;
+    margin-left: 14px;
+    border-left: 2px solid #E0E0E0;
+    white-space: nowrap;
+}
+
+/* ===== MENU DO USUÁRIO (AVATAR) ===== */
+.user-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 8px 15px;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.user-menu:hover {
+    background: #F5F5F5;
+}
+
+.user-icon {
+    width: 35px;
+    height: 35px;
+    background: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #303030;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #303030;
+}
+
+.user-role {
+    font-size: 12px;
+    color: #5C5C5C;
+}
+
+.dropdown-arrow {
+    font-size: 12px;
+    color: #5C5C5C;
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 10px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    min-width: 190px;
+    overflow: hidden;
+    z-index: 200;
+}
+
+.user-menu.open .user-dropdown {
+    display: block;
+}
+
+.user-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #303030;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.user-dropdown-item:hover {
+    background: #F5F5F5;
+}
+
+.user-dropdown-item.logout {
+    color: #FA1A1A;
+    border-top: 1px solid #F0F0F0;
+}
+
+/* ===== MENU LATERAL (SIDEBAR) ===== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 2.5cm;
+    bottom: 1.5cm;
+    width: 250px;
+    background: #FFFFFF;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+    padding: 20px 0;
+    overflow-y: auto;
+}
+
+.menu-separator {
+    height: 2px;
+    background: #E0E0E0;
+    margin: 15px 0;
+}
+
+/* ===== CORREÇÃO: transition específico (remove efeito diagonal ao clicar) ===== */
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 25px;
+    color: #5C5C5C;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    font-size: 15px;
+    border-left: 3px solid transparent;
+    outline: none;
+}
+
+.menu-item:focus,
+.menu-item:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+
+.menu-item:hover {
+    background: #F5F5F5;
+    color: #303030;
+    border-left-color: #15AE5C;
+}
+
+.menu-item.active {
+    background: #E8F5E9;
+    color: #15AE5C;
+    font-weight: 600;
+    border-left-color: #15AE5C;
+}
+
+.menu-icon {
+    font-size: 18px;
+    width: 20px;
+    text-align: center;
+}
+
+/* ===== ÁREA DE CONTEÚDO ===== */
+.main-content {
+    margin-left: 250px;
+    margin-top: 2.5cm;
+    margin-bottom: 1.5cm;
+    padding: 30px;
+    height: calc(100vh - 2.5cm - 1.5cm);
+    overflow: hidden;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #303030;
+    margin-bottom: 25px;
+}
+
+/* ===== CONTAINER CRUD (LISTA + FORMULÁRIO) ===== */
+.crud-container {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 20px;
+    height: calc(100vh - 2.5cm - 1.5cm - 95px);
+}
+
+/* ===== LISTA (ESQUERDA/CENTRO) ===== */
+.list-section {
+    background: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.list-header {
+    padding: 20px;
+    border-bottom: 2px solid #F5F5F5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.search-box {
+    flex: 1;
+    max-width: 400px;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 15px 10px 40px;
+    border: 1px solid #C6C6C6;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #15AE5C;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #5C5C5C;
+    font-size: 16px;
+}
+
+.list-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.list-empty {
+    text-align: center;
+    color: #5C5C5C;
+    padding: 30px 15px;
+    font-size: 14px;
+}
+
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+    border: 2px solid transparent;
+}
+
+.list-item:hover {
+    background: #F9F9F9;
+}
+
+.list-item.selected {
+    background: #E8F5E9;
+    border-color: #15AE5C;
+}
+
+.item-main {
+    flex: 1;
+}
+
+.item-code {
+    font-size: 12px;
+    color: #5C5C5C;
+    margin-bottom: 4px;
+}
+
+.item-title {
+    font-weight: 600;
+    color: #303030;
+    margin-bottom: 4px;
+}
+
+.item-subtitle {
+    font-size: 13px;
+    color: #5C5C5C;
+}
+
+.item-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.badge-success {
+    background: #E8F5E9;
+    color: #15AE5C;
+}
+
+.badge-warning {
+    background: #FFF3E0;
+    color: #FF9800;
+}
+
+.badge-danger {
+    background: #FFEBEE;
+    color: #F44336;
+}
+
+.badge-info {
+    background: #E3F2FD;
+    color: #2196F3;
+}
+
+/* ===== FORMULÁRIO (DIREITA) ===== */
+.form-section {
+    background: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.form-header {
+    padding: 20px;
+    border-bottom: 2px solid #F5F5F5;
+}
+
+.form-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #303030;
+}
+
+/* ===== CORREÇÃO CRÍTICA: FORM TAG DENTRO DO FORM-SECTION ===== */
+.form-section form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.form-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #303030;
+    margin-bottom: 6px;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #C6C6C6;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #15AE5C;
+    box-shadow: 0 0 0 3px rgba(21, 174, 92, 0.1);
+}
+
+.form-input.is-invalid,
+.form-select.is-invalid,
+.form-textarea.is-invalid {
+    border-color: #F44336;
+    box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.1);
+}
+
+.form-error {
+    color: #F44336;
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* ===== BOTÕES DO FORMULÁRIO (RODAPÉ DO FRAME DIREITO) ===== */
+.form-footer {
+    padding: 20px;
+    border-top: 2px solid #F5F5F5;
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background: #15AE5C;
+    color: #FFFFFF;
+}
+
+.btn-primary:hover {
+    background: #139F52;
+}
+
+.btn-secondary {
+    background: #D1D1D1;
+    color: #303030;
+}
+
+.btn-secondary:hover {
+    background: #C6C6C6;
+}
+
+.btn-danger {
+    background: #F44336;
+    color: #FFFFFF;
+}
+
+.btn-danger:hover {
+    background: #D32F2F;
+}
+
+.btn-new {
+    background: #15AE5C;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+}
+
+.btn-new:hover {
+    background: #139F52;
+}
+
+/* ===== RODAPÉ INSTITUCIONAL (1,5cm) ===== */
+.footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1.5cm;
+    background: #D1D1D1;
+    border-top: 1px solid #BFBFBF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    z-index: 100;
+    text-align: center;
+}
+
+.footer p {
+    font-size: 11px;
+    line-height: 1.4;
+    color: #5C5C5C;
+    margin: 0;
+}
+
+.footer strong {
+    font-weight: 700;
+    color: #5C5C5C;
+}
