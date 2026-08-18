@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<!--
+    UC15 - Projeto Integrador 3 - Etapa 9
+    @author Alex
+    @since 15 de agosto de 2026
+    @version 1.9
+-->
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZeroAndar - Sistema de Prospecção Imobiliária</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style-corretores.css">
+</head>
+
+<body data-page="corretores">
+
+    <div class="header">
+        <div class="logo">
+            <img src="images/Logotipo.png" alt="Logotipo ZeroAndar" class="logo-img">
+            <span class="project-name">ZeroAndar &mdash; Sistema de Prospecção Imobiliária</span>
+        </div>
+
+        <div class="user-menu" id="userMenu">
+            <div class="user-icon">👤</div>
+            <div class="user-info">
+                <div class="user-name" id="userNameLabel">João Silva</div>
+                <div class="user-role" id="userRoleLabel">Corretor</div>
+            </div>
+            <div class="dropdown-arrow">▼</div>
+            <div class="user-dropdown">
+                <a href="#" class="user-dropdown-item" id="btnTrocarUsuario">🔄 Trocar de usuário</a>
+                <a href="login.html" class="user-dropdown-item logout" id="btnSair">🚪 Sair do app</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <a href="dashboard.html" class="menu-item" data-page="dashboard">
+            <span class="menu-icon">🏠</span>
+            <span>Dashboard</span>
+        </a>
+
+        <div class="menu-separator"></div>
+
+        <a href="imoveis.html" class="menu-item" data-page="imoveis">
+            <span class="menu-icon">🏢</span>
+            <span>Imóveis</span>
+        </a>
+        <a href="clientes.html" class="menu-item" data-page="clientes">
+            <span class="menu-icon">👥</span>
+            <span>Clientes</span>
+        </a>
+        <a href="proprietarios.html" class="menu-item" data-page="proprietarios">
+            <span class="menu-icon">👤</span>
+            <span>Proprietários</span>
+        </a>
+        <a href="corretores.html" class="menu-item active" data-page="corretores">
+            <span class="menu-icon">👔</span>
+            <span>Corretores</span>
+        </a>
+
+        <div class="menu-separator"></div>
+
+        <a href="#" class="menu-item" data-page="agenda" data-em-construcao="true">
+            <span class="menu-icon">📅</span>
+            <span>Agenda</span>
+        </a>
+        <a href="#" class="menu-item" data-page="negociacoes" data-em-construcao="true">
+            <span class="menu-icon">💼</span>
+            <span>Negociações</span>
+        </a>
+
+        <div class="menu-separator"></div>
+
+        <a href="#" class="menu-item" data-page="pesquisa" data-em-construcao="true">
+            <span class="menu-icon">🔍</span>
+            <span>Pesquisa</span>
+        </a>
+        <a href="#" class="menu-item" data-page="relatorios" data-em-construcao="true">
+            <span class="menu-icon">📊</span>
+            <span>Relatórios</span>
+        </a>
+
+        <div class="menu-separator"></div>
+
+        <a href="#" class="menu-item" data-page="configuracoes" data-em-construcao="true">
+            <span class="menu-icon">⚙️</span>
+            <span>Configurações</span>
+        </a>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <h1 class="page-title">Gestão de Corretores</h1>
+
+        <div class="crud-container">
+            <!-- LISTA (CENTRO) -->
+            <div class="list-section">
+                <div class="list-header">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" class="search-input" id="buscaCorretor" placeholder="Buscar por nome, CRECI, email...">
+                    </div>
+                    <button class="btn-new" id="btnNovoCorretor">+ Novo</button>
+                </div>
+
+                <div class="list-body" id="listaCorretores">
+                    <!-- Corretores restaurados (o JS pode limpar e repopular depois) -->
+                    <div class="list-item selected">
+                        <div class="item-main">
+                            <div class="item-code">CRECI-RS-12345</div>
+                            <div class="item-title">Ricardo Gomes</div>
+                            <div class="item-subtitle">ricardo.corretor@zandar.com • Residencial</div>
+                        </div>
+                        <span class="item-badge badge-success">Ativo</span>
+                    </div>
+                    <div class="list-item">
+                        <div class="item-main">
+                            <div class="item-code">CRECI-RS-67890</div>
+                            <div class="item-title">Patricia Lima</div>
+                            <div class="item-subtitle">patricia.corretor@zandar.com • Comercial</div>
+                        </div>
+                        <span class="item-badge badge-success">Ativo</span>
+                    </div>
+                    <div class="list-item">
+                        <div class="item-main">
+                            <div class="item-code">CRECI-RS-11223</div>
+                            <div class="item-title">Eduardo Costa</div>
+                            <div class="item-subtitle">eduardo.corretor@zandar.com • Residencial</div>
+                        </div>
+                        <span class="item-badge badge-warning">Férias</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FORMULÁRIO (DIREITA) -->
+            <div class="form-section">
+                <div class="form-header">
+                    <h2 class="form-title" id="formCorretorTitulo">Dados do Corretor</h2>
+                </div>
+
+                <form id="formCorretor" novalidate>
+                    <div class="form-body">
+                        <input type="hidden" id="corretorId">
+
+                        <div class="form-group">
+                            <label class="form-label">CRECI</label>
+                            <input type="text" class="form-input" id="corretorCreci" value="CRECI-RS-12345" placeholder="CRECI-RS-00000" required>
+                            <div class="form-error">Informe o número do CRECI.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Nome Completo</label>
+                            <input type="text" class="form-input" id="corretorNome" value="Ricardo Gomes" required>
+                            <div class="form-error">Informe o nome completo do corretor.</div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">CPF</label>
+                                <input type="text" class="form-input" id="corretorCpf" value="234.567.890-11" placeholder="000.000.000-00" required>
+                                <div class="form-error">Informe um CPF válido (000.000.000-00).</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">RG</label>
+                                <input type="text" class="form-input" id="corretorRg" value="SP456789">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" id="corretorEmail" value="ricardo.corretor@zandar.com" required>
+                                <div class="form-error">Informe um e-mail válido.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Telefone</label>
+                                <input type="text" class="form-input" id="corretorTelefone" value="(54) 99999-0002" placeholder="(00) 00000-0000">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Data de Admissão</label>
+                                <input type="date" class="form-input" id="corretorDataAdmissao" value="2020-01-15">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Data Desligamento</label>
+                                <input type="date" class="form-input" id="corretorDataDesligamento">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Especialidade</label>
+                            <select class="form-select" id="corretorEspecialidade">
+                                <option selected>Residencial</option>
+                                <option>Comercial</option>
+                                <option>Rural</option>
+                                <option>Luxo</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Comissão (%)</label>
+                                <input type="number" min="0" max="100" step="0.01" class="form-input" id="corretorComissao" value="6.00">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Meta Mensal (R$)</label>
+                                <input type="number" min="0" step="0.01" class="form-input" id="corretorMeta" value="150000.00">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Endereço</label>
+                            <input type="text" class="form-input" id="corretorEndereco" value="Rua Moron, 850">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Cidade</label>
+                                <input type="text" class="form-input" id="corretorCidade" value="Passo Fundo">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Estado</label>
+                                <input type="text" maxlength="2" class="form-input" id="corretorEstado" value="RS">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Observações</label>
+                            <textarea class="form-textarea" id="corretorObservacoes">Corretor experiente, especialista em imóveis residenciais</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-footer">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <button type="button" class="btn btn-secondary" id="btnLimparCorretor">Limpar</button>
+                        <button type="button" class="btn btn-danger" id="btnExcluirCorretor">Excluir</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2026 <strong>ZERO ANDAR</strong>. Todos os direitos autorais reservados. É proibida a distribuição parcial ou total sem autorização.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/mock-data.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/corretores.js"></script>
+</body>
+
+</html>
